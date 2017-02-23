@@ -673,6 +673,10 @@ abstract class AbstractProvider
             if (strpos($type, 'json') !== false) {
                 throw $e;
             }
+            
+            if ($response->getStatusCode() == 500) {
+				throw new UnexpectedValueException('Failed to parse JSON and OAuth server response code is 500. It could be internal error on Oauth server.');
+			}
 
             return $content;
         }
